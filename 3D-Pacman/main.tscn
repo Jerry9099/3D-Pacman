@@ -1,10 +1,38 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [sub_resource type="BoxShape" id=1]
 
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.0666667, 0, 0.870588, 1 )
+
+[sub_resource type="BoxShape" id=3]
+
+[sub_resource type="CubeMesh" id=4]
+
 [node name="Main" type="Spatial"]
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="Wall" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Wall"]
 shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 5 )
+
+[node name="CameraParent" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6.082 )
+
+[node name="Camera" type="Camera" parent="CameraParent"]
+
+[node name="Floor" type="StaticBody" parent="."]
+transform = Transform( 30, 0, 0, 0, 1, 0, 0, 0, 30, 0, -1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor/CollisionShape"]
+mesh = SubResource( 4 )
